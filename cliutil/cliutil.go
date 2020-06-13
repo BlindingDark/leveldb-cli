@@ -27,9 +27,13 @@ func ToString(format string, value []byte) string {
 	case "float64":
 		return float64ToString(value)
 	case "hex":
-		return hexToString(value)
+		return toHexString(value)
+	case "raw-hex":
+		return toRawHexString(value)
 	case "bin":
-		return binToString(value)
+		return toBinString(value)
+	case "raw-bin":
+		return toRawBinString(value)
 	case "raw":
 	default:
 	}
@@ -67,12 +71,22 @@ func float64ToString(value []byte) string {
 	))
 }
 
-// Converts data from hex type to a string
-func hexToString(value []byte) string {
+// Converts data to a format hex string
+func toHexString(value []byte) string {
 	return fmt.Sprintf("%s", hex.Dump(value))
 }
 
-// Converts data from bin type to a string
-func binToString(value []byte) string {
+// Converts data to a raw hex string
+func toRawHexString(value []byte) string {
+	return fmt.Sprintf("%s", hex.EncodeToString(value))
+}
+
+// Converts data to a format bin string
+func toBinString(value []byte) string {
     return fmt.Sprintf("%08b", value)
+}
+
+// Converts data to a raw bin string
+func toRawBinString(value []byte) string {
+    return fmt.Sprintf("%b", value)
 }
