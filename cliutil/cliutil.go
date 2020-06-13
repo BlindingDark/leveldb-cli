@@ -8,6 +8,7 @@ package cliutil
 
 import (
 	"encoding/binary"
+	"encoding/hex"
 	"fmt"
 	"github.com/TomiHiltunen/geohash-golang"
 	"gopkg.in/mgo.v2/bson"
@@ -25,6 +26,10 @@ func ToString(format string, value []byte) string {
 		return int64ToString(value)
 	case "float64":
 		return float64ToString(value)
+	case "hex":
+		return hexToString(value)
+	case "bin":
+		return binToString(value)
 	case "raw":
 	default:
 	}
@@ -60,4 +65,14 @@ func float64ToString(value []byte) string {
 	return fmt.Sprintf("%f", math.Float64frombits(
 		binary.LittleEndian.Uint64(value),
 	))
+}
+
+// Converts data from hex type to a string
+func hexToString(value []byte) string {
+	return fmt.Sprintf("%s", hex.Dump(value))
+}
+
+// Converts data from bin type to a string
+func binToString(value []byte) string {
+    return fmt.Sprintf("%08b", value)
 }
