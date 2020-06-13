@@ -141,6 +141,20 @@ func main() {
 
 			fmt.Println(commands.Get(args[1], format))
 			break
+		// Command: hex-get
+		case args[0] == "hex-get":
+			if len(args) < 2 || len(args) > 3 {
+				fmt.Println("Bad format. Please use 'hex-get KEY FORMAT'")
+				break
+			}
+
+			format := ""
+			if len(args) == 3 {
+				format = args[2]
+			}
+
+			fmt.Println(commands.HexGet(args[1], format))
+			break
 		// Command: delete
 		case args[0] == "delete":
 			if len(args) != 2 {
